@@ -2,6 +2,8 @@
 
 import dev.robocode.tankroyale.botapi.*;
 import dev.robocode.tankroyale.botapi.events.*;
+import dev.robocode.tankroyale.botapi.graphics.Color;
+import java.awt.Color;
 
 public class DoubleTrouble extends Bot {
 
@@ -13,11 +15,12 @@ public class DoubleTrouble extends Bot {
     // Called when a new round is started -> initialize and do some movement
     @Override
     public void run() {
+
         // Repeat while the bot is running
         while (isRunning()) {
-            forward(100);
+            forward(170);
             turnGunRight(360);
-            back(100);
+            back(120);
             turnGunRight(360);
         }
     }
