@@ -1,39 +1,40 @@
+//STARTING BOT
+
 import dev.robocode.tankroyale.botapi.*;
 import dev.robocode.tankroyale.botapi.events.*;
 
-//main method
-public static void main(String[]args) {
-    new MyFirstBot9.start();
-}
+public class MyFirstBot extends Bot {
 
-MyFirstBot() {
-    super(BotInfo..fromfile("MyFirstBot.json"));
-}
+    // The main method starts our bot
+    public static void main(String[] args) {
+        new MyFirstBot().start();
+    }
 
-// Called when a new round is started -> initialize and do some movement
-@Override
-public void run() {
-    // Repeat while the bot is running
-    while (isRunning()) {
-        forward(100);
-        turnGunRight(360);
-        back(100);
-        turnGunRight(360);
+    // Called when a new round is started -> initialize and do some movement
+    @Override
+    public void run() {
+        // Repeat while the bot is running
+        while (isRunning()) {
+            forward(100);
+            turnGunRight(360);
+            back(100);
+            turnGunRight(360);
+        }
+    }
+
+    // We saw another bot -> fire!
+    @Override
+    public void onScannedBot(ScannedBotEvent e) {
+        fire(1);
+    }
+
+    // We were hit by a bullet -> turn perpendicular to the bullet
+    @Override
+    public void onHitByBullet(HitByBulletEvent e) {
+        // Calculate the bearing to the direction of the bullet
+        double bearing = calcBearing(e.getBullet().getDirection());
+
+        // Turn 90 degrees to the bullet direction based on the bearing
+        turnLeft(90 - bearing);
     }
 }
-
-// we see another bot, fire!
-@Override
-public void onScannedBot(ScannedBotEvent e) {
-    fire(1)
-}
-
-//we were hit -> turn perpandicular to bullet
-@Override
-public void onHitByBullet(HitByBUlletEvent e) {
-    //Calculate bearing to direction of bullet
-    double bearing = calcBearing(e.getBullet().getDirection())
-
-    //Turn perpandicular to bullet
-    turnLEft(90 - bearing);
-    }
