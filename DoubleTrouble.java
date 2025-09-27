@@ -1,43 +1,59 @@
-//STARTING BOT
-
 import dev.robocode.tankroyale.botapi.*;
 import dev.robocode.tankroyale.botapi.events.*;
 import dev.robocode.tankroyale.botapi.graphics.Color;
-import java.awt.Color;
 
-public class DoubleTrouble extends Bot {
+// ------------------------------------------------------------------
+// SpinBot
+// ------------------------------------------------------------------
+// A sample bot original made for Robocode by Mathew Nelson.
+//
+// Continuously moves in a circle while firing at maximum power when
+// detecting enemies.
+// ------------------------------------------------------------------
+public class SpinBot extends Bot {
 
     // The main method starts our bot
     public static void main(String[] args) {
-        new DoubleTrouble().start();
+        new SpinBot().start();
     }
 
     // Called when a new round is started -> initialize and do some movement
     @Override
     public void run() {
+        setBodyColor(Color.BLACK);
+        setTurretColor(Color.RED);
+        setTrackColor(Color, RED)
+        setRadarColor(Color.GREEN);
+        setScanColor(Color.YELLOW);
 
         // Repeat while the bot is running
         while (isRunning()) {
-            forward(170);
-            turnGunRight(360);
-            back(120);
-            turnGunRight(360);
+            // Tell the game that when we take move, we'll also want to turn right... a lot
+            setTurnRight(10_000);
+            // Limit our speed to 5
+            setMaxSpeed(5);
+            // Start moving (and turning)
+            forward(10_000);
         }
     }
 
-    // We saw another bot -> fire!
+    // We scanned another bot -> fire hard!
     @Override
     public void onScannedBot(ScannedBotEvent e) {
-        fire(1);
+        fire(3);
     }
 
-    // We were hit by a bullet -> turn perpendicular to the bullet
+    // We hit another bot -> if it's our fault, we'll stop turning and moving,
+    // so we need to turn again to keep spinning.
     @Override
-    public void onHitByBullet(HitByBulletEvent e) {
-        // Calculate the bearing to the direction of the bullet
-        double bearing = calcBearing(e.getBullet().getDirection());
-
-        // Turn 90 degrees to the bullet direction based on the bearing
-        turnLeft(90 - bearing);
+    public void onHitBot(HitBotEvent e) {
+        var direction = directionTo(e.getX(), e.getY());
+        var bearing = calcBearing(direction);
+        if (bearing > -10 && bearing < 10) {
+            fire(3);
+        }
+        if (e.isRammed()) {
+            turnRight(10);
+        }
     }
 }
