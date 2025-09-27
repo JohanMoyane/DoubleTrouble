@@ -36,4 +36,4 @@ public void onHitByBullet(HitByBUlletEvent e) {
 
     //Turn perpandicular to bullet
     turnLEft(90 - bearing);
-}
+    }
