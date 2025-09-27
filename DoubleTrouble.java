@@ -27,3 +27,13 @@ public void run() {
 public void onScannedBot(ScannedBotEvent e) {
     fire(1)
 }
+
+//we were hit -> turn perpandicular to bullet
+@Override
+public void onHitByBullet(HitByBUlletEvent e) {
+    //Calculate bearing to direction of bullet
+    double bearing = calcBearing(e.getBullet().getDirection())
+
+    //Turn perpandicular to bullet
+    turnLEft(90 - bearing);
+}
