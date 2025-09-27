@@ -1,0 +1,9 @@
+{
+    "name": "My First Bot",
+    "version": "1.0",
+    "authors": ["<Double Trouble>"],
+    "homepage": "",
+    "countryCodes": ["SA"],
+    "platform": "Java",
+    "programmingLanguage": "Java"
+}
