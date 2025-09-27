@@ -22,7 +22,7 @@ public class SpinBot extends Bot {
     public void run() {
         setBodyColor(Color.BLACK);
         setTurretColor(Color.RED);
-        setTrackColor(Color, RED)
+        setTrackColor(Color, RED);
         setRadarColor(Color.GREEN);
         setScanColor(Color.YELLOW);
 
